@@ -1,0 +1,8 @@
+.overview {
+
+}
+
+.categories {
+  display: flex;
+  flex-direction: column;
+}

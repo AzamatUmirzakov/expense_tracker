@@ -1,0 +1,15 @@
+.monthlyOverview {
+  margin-bottom: 50px;
+}
+
+.monthlyOverviewBlocks {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.monthlyExpense {
+}
+
+.monthlyIncome {
+}

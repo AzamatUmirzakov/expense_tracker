@@ -1,0 +1,12 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  display: grid;
+  grid-template-areas: 'control-panel main sidebar';
+  grid-template-columns: 20% 1fr 30%;
+  width: 100%;
+  box-sizing: border-box;
+}

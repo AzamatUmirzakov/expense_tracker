@@ -1,0 +1,33 @@
+.category {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 20px;
+  background-color: #F5F9FA;
+  border-radius: 15px;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  font-family: "Montserrat Regular";
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+}
+
+.text h2 {
+  margin-bottom: 10px;
+  color: #aaa;
+  font-size: 15px;
+}
+
+.text h3 {
+  color: #000;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.percentage {
+  color: #0D69FF;
+}
