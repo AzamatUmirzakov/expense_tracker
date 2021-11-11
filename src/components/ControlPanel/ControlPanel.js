@@ -1,6 +1,5 @@
 import {useSelector, useDispatch} from "react-redux";
 import {useState} from "react";
-import {getCoefficients} from "../../api/api";
 import selectCategories from "../../selectors/select-categories";
 import selectCurrency from "../../selectors/select-currency";
 import selectBudget from "../../selectors/select-budget";
