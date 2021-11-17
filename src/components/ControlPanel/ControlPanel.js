@@ -4,7 +4,7 @@ import selectCategories from "../../selectors/select-categories";
 import selectCurrency from "../../selectors/select-currency";
 import selectBudget from "../../selectors/select-budget";
 import {setMontlyBudget} from "../../reducers/root-reducer";
-import changeCurrency from "../../thunks/change-currency";
+import setNewCurrency from "../../thunks/set-new-currency";
 import Select from "../../common/Select/Select";
 import avatar from '../../assets/avatar.svg';
 import gear from '../../assets/gear.svg';
@@ -37,8 +37,8 @@ const ControlPanel = (props) => {
       currency: currentCurrency ? currentCurrency : 'USD',
     },
     onSubmit: (values) => {
+      dispatch(setNewCurrency(currentCurrency, values.currency));
       dispatch(setMontlyBudget(values.budget));
-      dispatch(changeCurrency(currentCurrency, values.currency));
       setPopupState(false);
     },
   })
