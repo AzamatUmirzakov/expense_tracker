@@ -56,6 +56,10 @@
   display: none;
 }
 
+.popup form .error {
+  font-family: "Montserrat Regular";
+}
+
 .popup .radiobuttons {
   display: flex;
   justify-content: space-between;

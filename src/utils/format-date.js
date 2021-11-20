@@ -19,7 +19,7 @@ const determineMonth = (month) => {
 const formatDate = (timestamp) => {
   const date = timestamp.getDate();
   const month = determineMonth(timestamp.getMonth());
-  const year = String(timestamp.getFullYear()).slice(2);
+  const year = timestamp.getFullYear();
   const hours =
     timestamp.getHours() < 10
       ? `0${timestamp.getHours()}`

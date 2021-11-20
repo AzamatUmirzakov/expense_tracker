@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import selectDaily from "../selectors/select-daily";
 
 const initialState = {
   initialized: false,
@@ -9,10 +10,24 @@ const initialState = {
     spent: 0,
   },
   monthly: [],
-  daily: {},
-  today: {
+  daily: {
+    [new Date().toDateString()]: {
+      history: [],
+    },
+    [new Date(2021, 10, 19).toDateString()]: {
+      history: [
+        {
+          name: "Test",
+          type: "expense",
+          value: 5,
+          timestamp: new Date(2021, 11, 19, 19, 0),
+        },
+      ],
+    },
+  },
+  history: {
     date: new Date(),
-    history: [],
+    entries: [],
   },
 };
 
@@ -29,12 +44,24 @@ const rootReducer = createSlice({
     },
     createNewDailyHistory: (state, action) => {
       const newState = { ...state };
-      newState.daily = { ...state.daily };
-      newState.daily[state.today.date.toDateString()] = state.today.history;
-      newState.today = {
+      newState.history = {
         date: new Date(),
-        history: [],
+        entries: [],
       };
+      return newState;
+    },
+    switchHistory: (state, action) => {
+      const daily = selectDaily(state);
+      if (!daily[action.payload]) {
+        return state;
+      }
+      const newState = { ...state };
+      newState.history = {
+        date: action.payload,
+        entries: [...selectDaily(state)[action.payload].history],
+      };
+      console.log(newState.history.entries.forEach((entry) => JSON.stringify(entry)));
+      debugger;
       return newState;
     },
     addEntry: (state, action) => {
@@ -67,8 +94,22 @@ const rootReducer = createSlice({
           newMonthIndex = i;
         }
       }
-      newState.today = { ...state.today };
-      newState.today.history = [...state.today.history, entry];
+      newState.history = { ...state.history };
+      const currentDate = new Date().toDateString();
+      newState.daily = {
+        ...state.daily,
+      };
+      newState.daily[currentDate] = {
+        ...state.daily[currentDate],
+      };
+      newState.daily[currentDate].history = [
+        ...newState.daily[currentDate].history,
+        entry,
+      ];
+      newState.history = {
+        date: currentDate,
+        entries: [...newState.daily[currentDate].history],
+      }
       newState.monthly = [...state.monthly];
       newState.categories = { ...state.categories };
       newState.budget = { ...state.budget };
@@ -103,7 +144,7 @@ const rootReducer = createSlice({
     },
     changeCurrency: (state, action) => {
       const { coefficients, next, previous } = action.payload;
-      for (let entry of state.today.history) {
+      for (let entry of state.history.entries) {
         entry.value = Math.round(
           entry.value * coefficients.results[`${previous}_${next}`].val
         );
@@ -135,6 +176,7 @@ const rootReducer = createSlice({
 export const {
   setInitializationStatus,
   createNewDailyHistory,
+  switchHistory,
   addEntry,
   setMontlyBudget,
   setCurrency,

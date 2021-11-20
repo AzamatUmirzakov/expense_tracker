@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { useFormik } from "formik";
-import { useDispatch } from "react-redux";
-import { addEntry } from "../../../reducers/root-reducer";
 import getWeek from "../../../utils/get-week";
 import classNames from "classnames";
 import { useSpring, animated } from "react-spring";
@@ -12,15 +10,22 @@ import chevronRight from "../../../assets/chevron-right.svg";
 const Header = (props) => {
   const [popupState, setPopupState] = useState(false);
   const handleClick = () => setPopupState(!popupState);
-  const dispatch = useDispatch();
   const formik = useFormik({
     onSubmit: (values) => {
-      if (values.category === "") {
-        values.category = "Miscellaneous";
-      }
-      dispatch(addEntry(values));
+      props.handleEntrySubmit(values);
       setPopupState(false);
       formik.resetForm();
+    },
+    validate: (values) => {
+      const {title, value} = values;
+      let errors = {};
+      if (title === '') {
+        errors.title = 'Please enter title'
+      }
+      if (value === '') {
+        errors.value = 'Please enter quantity';
+      }
+      return errors;
     },
     initialValues: {
       title: "",
@@ -41,6 +46,9 @@ const Header = (props) => {
   });
   const weekDays = getWeek(new Date());
   const currentDate = new Date();
+  const handleDayClick = (date) => {
+    props.handleHistorySwitch(date.toDateString());
+  };
   return (
     <header className={styles.header}>
       <animated.div
@@ -59,6 +67,7 @@ const Header = (props) => {
         </header>
         <form action="" onSubmit={formik.handleSubmit}>
           <label htmlFor="title">Title</label>
+          <p className={styles.error}>{formik.errors.title ? formik.errors.title : null}</p>
           <input
             value={formik.values.title}
             onChange={formik.handleChange}
@@ -67,6 +76,7 @@ const Header = (props) => {
             placeholder={"Title"}
           />
           <label htmlFor="value">Value</label>
+          <p className={styles.error}>{formik.errors.value ? formik.errors.value : null}</p>
           <input
             value={formik.values.value}
             onChange={formik.handleChange}
@@ -127,6 +137,7 @@ const Header = (props) => {
                   day.getMonth() === currentDate.getMonth() &&
                   day.getFullYear() === currentDate.getFullYear(),
               })}
+              onClick={() => handleDayClick(day)}
             >
               {day.getDate()}
             </div>
