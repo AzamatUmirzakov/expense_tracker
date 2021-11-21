@@ -1,13 +1,15 @@
-import { setInitializationStatus } from "../reducers/root-reducer";
+import {setInitializationStatus, switchHistory} from "../reducers/root-reducer";
 import { createNewDailyHistory } from "../reducers/root-reducer";
-import selectHistory from "../selectors/select-history";
+import selectDaily from "../selectors/select-daily";
 
 const initialize = () => async (dispatch, getState) => {
   dispatch(setInitializationStatus(false));
   const state = getState();
-  if (selectHistory(state).date.toDateString() !== new Date().toDateString()) {
-    dispatch(createNewDailyHistory());
+  const currentDate = new Date().toDateString();
+  if (!selectDaily(state)[currentDate]) {
+    dispatch(createNewDailyHistory(currentDate));
   }
+  dispatch(switchHistory(currentDate))
   dispatch(setInitializationStatus(true));
 };
 

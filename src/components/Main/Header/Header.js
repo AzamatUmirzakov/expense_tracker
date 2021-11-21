@@ -67,7 +67,7 @@ const Header = (props) => {
         </header>
         <form action="" onSubmit={formik.handleSubmit}>
           <label htmlFor="title">Title</label>
-          <p className={styles.error}>{formik.errors.title ? formik.errors.title : null}</p>
+          <p className={styles.error}>{formik.touched.title ? (formik.errors.title ? formik.errors.title : null) : null}</p>
           <input
             value={formik.values.title}
             onChange={formik.handleChange}
@@ -76,7 +76,7 @@ const Header = (props) => {
             placeholder={"Title"}
           />
           <label htmlFor="value">Value</label>
-          <p className={styles.error}>{formik.errors.value ? formik.errors.value : null}</p>
+          <p className={styles.error}>{formik.touched.value ? (formik.errors.value ? formik.errors.value : null) : null}</p>
           <input
             value={formik.values.value}
             onChange={formik.handleChange}

@@ -30,7 +30,6 @@ const formatDate = (timestamp) => {
       : timestamp.getMinutes();
 
   const result = `${date} ${month}' ${year}, ${hours}:${minutes}`;
-  console.log(result);
   return result;
 };
 

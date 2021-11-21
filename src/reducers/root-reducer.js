@@ -44,7 +44,8 @@ const rootReducer = createSlice({
     },
     createNewDailyHistory: (state, action) => {
       const newState = { ...state };
-      newState.history = {
+      newState.daily = {...state.daily};
+      newState.daily[action.payload] = {
         date: new Date(),
         entries: [],
       };
@@ -60,8 +61,6 @@ const rootReducer = createSlice({
         date: action.payload,
         entries: [...selectDaily(state)[action.payload].history],
       };
-      console.log(newState.history.entries.forEach((entry) => JSON.stringify(entry)));
-      debugger;
       return newState;
     },
     addEntry: (state, action) => {
@@ -122,11 +121,11 @@ const rootReducer = createSlice({
       } else {
         newState.monthly.splice(newMonthIndex, 1, newMonth);
       }
+      if (!newState.categories[entry.category]) {
+        newState.categories[entry.category] = 0;
+      }
       if (entry.type === "expense") {
         newState.budget.spent = newState.budget.spent + entry.value;
-        if (!newState.categories[entry.category]) {
-          newState.categories[entry.category] = 0;
-        }
         newState.categories[entry.category] += entry.value;
       }
       return newState;

@@ -194,7 +194,7 @@
   align-items: center;
   box-sizing: border-box;
   border: 1px solid #ccc;
-  border-radius: 15px;
+  border-radius: 10px;
   color: #000;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
