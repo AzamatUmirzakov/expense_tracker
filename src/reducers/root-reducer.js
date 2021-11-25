@@ -12,10 +12,10 @@ const initialState = {
   monthly: [],
   daily: {
     [new Date().toDateString()]: {
-      history: [],
+      entries: [],
     },
     [new Date(2021, 10, 19).toDateString()]: {
-      history: [
+      entries: [
         {
           name: "Test",
           type: "expense",
@@ -59,7 +59,7 @@ const rootReducer = createSlice({
       const newState = { ...state };
       newState.history = {
         date: action.payload,
-        entries: [...selectDaily(state)[action.payload].history],
+        entries: [...selectDaily(state)[action.payload].entries],
       };
       return newState;
     },

@@ -6,7 +6,7 @@
 .App {
   display: grid;
   grid-template-areas: 'control-panel main sidebar';
-  grid-template-columns: 20% 1fr 30%;
+  grid-template-columns: 25% 1fr 30%;
   width: 100%;
   box-sizing: border-box;
 }

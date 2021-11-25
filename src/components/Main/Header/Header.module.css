@@ -139,7 +139,7 @@
   border-radius: 15px;
   font-family: "Montserrat Regular";
   font-size: 15px;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   transition: all 0.3s ease-in-out;
 }
 
@@ -198,6 +198,17 @@
   color: #000;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
+  position: relative;
+}
+
+.weekDayName {
+  position: absolute;
+  top: -25px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  color: #ccc;
 }
 
 .weekDay:hover {
@@ -209,4 +220,8 @@
   background-color: #f6f8fa;
   border-color: #f6f8fa;
   color: #7b77c4;
+}
+
+.weekDay.active .weekDayName {
+  color: #000;
 }

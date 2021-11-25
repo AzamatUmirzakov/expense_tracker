@@ -37,8 +37,8 @@ const ControlPanel = (props) => {
       currency: currentCurrency ? currentCurrency : 'USD',
     },
     onSubmit: (values) => {
-      dispatch(setNewCurrency(currentCurrency, values.currency));
       dispatch(setMontlyBudget(values.budget));
+      dispatch(setNewCurrency(currentCurrency, values.currency));
       setPopupState(false);
     },
   })

@@ -44,7 +44,15 @@ const Header = (props) => {
       scale: popupState ? 1 : 0.8,
     },
   });
-  const weekDays = getWeek(new Date());
+  const [week, setWeek] = useState(new Date());
+  const showPreviousWeek = () => {
+    setWeek(new Date(week.getFullYear(), week.getMonth(), week.getDate() - 7))
+  };
+  const showNextWeek = () => {
+    setWeek(new Date(week.getFullYear(), week.getMonth(), week.getDate() + 7))
+  };
+  const weekDays = getWeek(week);
+  const weekDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   const currentDate = new Date();
   const handleDayClick = (date) => {
     props.handleHistorySwitch(date.toDateString());
@@ -125,7 +133,7 @@ const Header = (props) => {
       </div>
       <input type="text" placeholder="Search" />
       <div className={styles.weekNav}>
-        <button>
+        <button onClick={showPreviousWeek}>
           <img src={chevronLeft} alt="Back" />
         </button>
         <div className={styles.weekDays}>
@@ -139,11 +147,12 @@ const Header = (props) => {
               })}
               onClick={() => handleDayClick(day)}
             >
+              <div className={styles.weekDayName}>{weekDayNames[day.getDay()]}</div>
               {day.getDate()}
             </div>
           ))}
         </div>
-        <button>
+        <button onClick={showNextWeek}>
           <img src={chevronRight} alt="Forward" />
         </button>
       </div>
