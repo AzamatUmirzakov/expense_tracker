@@ -57,7 +57,6 @@ const rootReducer = createSlice({
         return state;
       }
       const newState = { ...state };
-      debugger;
       newState.history = {
         date: action.payload,
         entries: [...selectDaily(state)[action.payload].entries],

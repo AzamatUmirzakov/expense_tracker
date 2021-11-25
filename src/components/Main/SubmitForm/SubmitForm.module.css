@@ -1,0 +1,132 @@
+.submitForm {
+
+}
+
+.popup {
+  position: fixed;
+  top: calc(50% - 30vh);
+  left: calc(50% - 15vw);
+  background-color: #fff;
+  padding: 20px;
+  width: 30vw;
+  height: 60vh;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.07),
+  0 2px 4px rgba(0,0,0,0.07),
+  0 4px 8px rgba(0,0,0,0.07),
+  0 8px 16px rgba(0,0,0,0.07),
+  0 16px 32px rgba(0,0,0,0.07),
+  0 32px 64px rgba(0,0,0,0.07);
+  /*display: none;*/
+}
+
+.popupActive {
+  display: block;
+}
+
+.popup header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.popup header h1 {
+  margin-bottom: 0;
+}
+
+.popup header button {
+  background: #4239F9;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 20px;
+  font-family: "Montserrat Regular";
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.popup button:hover {
+  box-shadow: 0 1px 2px rgba(0,0,0,0.07),
+  0 2px 4px rgba(0,0,0,0.07),
+  0 4px 8px rgba(0,0,0,0.07),
+  0 8px 16px rgba(0,0,0,0.07),
+  0 16px 32px rgba(0,0,0,0.07),
+  0 32px 64px rgba(0,0,0,0.07);
+}
+
+.popup form {
+  display: flex;
+  flex-direction: column;
+}
+
+.popup form input {
+  border: none;
+  outline: none;
+  padding: 15px;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 15px;
+  margin-bottom: 20px;
+  transition: all 0.3s ease-in-out;
+  background-color: transparent;
+  border-radius: 0;
+  border: 0;
+  border-bottom: 1px solid #ccc;
+  font-family: "Montserrat Regular";
+  transition: all 0.3s ease-in-out;
+}
+
+.popup form input:hover, .popup form input:focus {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.popup form label {
+  display: none;
+}
+
+.popup form .error {
+  font-family: "Montserrat Regular";
+}
+
+.popup .radiobuttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.popup .radiobuttons label {
+  display: block;
+  font-family: "Montserrat Regular";
+  font-size: 15px;
+  margin-bottom: 5px;
+}
+
+.popup .radiobuttons input {
+  cursor: pointer;
+}
+
+.popup form button[type='submit'] {
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 30px;
+  background: #4239F9;
+  padding: 20px;
+  margin-top: 20px;
+  color: #fff;
+  border: none;
+  outline: none;
+  font-family: "Montserrat Regular";
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
