@@ -57,6 +57,7 @@ const rootReducer = createSlice({
         return state;
       }
       const newState = { ...state };
+      debugger;
       newState.history = {
         date: action.payload,
         entries: [...selectDaily(state)[action.payload].entries],
@@ -101,13 +102,13 @@ const rootReducer = createSlice({
       newState.daily[currentDate] = {
         ...state.daily[currentDate],
       };
-      newState.daily[currentDate].history = [
-        ...newState.daily[currentDate].history,
+      newState.daily[currentDate].entries = [
+        ...newState.daily[currentDate].entries,
         entry,
       ];
       newState.history = {
         date: currentDate,
-        entries: [...newState.daily[currentDate].history],
+        entries: [...newState.daily[currentDate].entries],
       }
       newState.monthly = [...state.monthly];
       newState.categories = { ...state.categories };
