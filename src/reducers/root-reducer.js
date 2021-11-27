@@ -5,6 +5,7 @@ const initialState = {
   initialized: false,
   currency: "USD",
   categories: {},
+  filter: "",
   budget: {
     value: 500,
     spent: 0,
@@ -169,6 +170,11 @@ const rootReducer = createSlice({
         );
       }
     },
+    changeFilter: (state, action) => {
+      const newState = {...state};
+      newState.filter = action.payload;
+      return newState;
+    }
   },
 });
 
@@ -180,6 +186,7 @@ export const {
   setMontlyBudget,
   setCurrency,
   changeCurrency,
+  changeFilter,
 } = rootReducer.actions;
 
 export default rootReducer.reducer;

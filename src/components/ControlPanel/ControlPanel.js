@@ -3,19 +3,19 @@ import {useState} from "react";
 import selectCategories from "../../selectors/select-categories";
 import selectCurrency from "../../selectors/select-currency";
 import selectBudget from "../../selectors/select-budget";
-import {setMontlyBudget} from "../../reducers/root-reducer";
-import setNewCurrency from "../../thunks/set-new-currency";
 import Select from "../../common/Select/Select";
 import avatar from '../../assets/avatar.svg';
 import gear from '../../assets/gear.svg';
 import {useSpring, animated} from "react-spring";
 import styles from './ControlPanel.module.css';
 import {useFormik} from "formik";
+import selectCurrentFilter from "../../selectors/select-current-filter";
+import classNames from "classnames";
 
 const ControlPanel = (props) => {
-  const dispatch = useDispatch();
   const categories = useSelector(selectCategories);
   const currentCurrency = useSelector(selectCurrency);
+  const currentFilter = useSelector(selectCurrentFilter);
   const currencies = ['USD', 'RUB', 'KZT'];
   const budget = useSelector(selectBudget);
   const [popupState, setPopupState] = useState(false)
@@ -37,8 +37,7 @@ const ControlPanel = (props) => {
       currency: currentCurrency ? currentCurrency : 'USD',
     },
     onSubmit: (values) => {
-      dispatch(setMontlyBudget(values.budget));
-      dispatch(setNewCurrency(currentCurrency, values.currency));
+      props.handleSettingsChange(values);
       setPopupState(false);
     },
   })
@@ -75,7 +74,7 @@ const ControlPanel = (props) => {
       <div className={styles.categories}>
         <h2>Categories</h2>
         <ul>
-          {Object.keys(categories).map(category => <li key={category}>{category}</li>)}
+          {Object.keys(categories).map(category => <li className={classNames({[styles.activeCategory]: currentFilter === category})} onClick={() => props.handleFilterChange(category)} key={category}>{category}</li>)}
         </ul>
       </div>
       <p>This is still work in progress :)</p>

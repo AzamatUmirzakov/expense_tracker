@@ -66,6 +66,10 @@
   margin-bottom: 10px;
 }
 
+.categories .activeCategory {
+  border-color: #ccc;
+}
+
 .currency select {
   box-sizing: border-box;
   padding: 10px;
