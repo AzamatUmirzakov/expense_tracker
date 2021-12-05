@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import selectDaily from "../selectors/select-daily";
+import getNewEntryIndex from '../utils/get-new-entry-index';
 
 const initialState = {
   initialized: false,
@@ -30,6 +31,7 @@ const initialState = {
     date: new Date(),
     entries: [],
   },
+  entries: [],
 };
 
 const rootReducer = createSlice({
@@ -73,6 +75,9 @@ const rootReducer = createSlice({
         value: action.payload.value,
         type: action.payload.type,
       };
+      newState.entries = [...state.entries];
+      const index = getNewEntryIndex(newState.entries, entry)
+      newState.entries.splice(getNewEntryIndex(newState.entries, entry), 0, entry);
       const date = new Date(
         entry.timestamp.getFullYear(),
         entry.timestamp.getMonth()
