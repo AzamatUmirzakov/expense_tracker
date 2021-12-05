@@ -7,6 +7,7 @@ import { addEntry, switchHistory } from "../../reducers/root-reducer";
 import SubmitForm from "./SubmitForm/SubmitForm";
 import {useState} from "react";
 import selectCurrentFilter from "../../selectors/select-current-filter";
+import selectEntries from "../../selectors/select-entries";
 
 const Main = (props) => {
   const { entries } = useSelector(selectHistory);
@@ -30,11 +31,13 @@ const Main = (props) => {
   const handlePopupToggle = () => {
     setPopupState(!popupState);
   }
+  const searchEntries = useSelector(selectEntries);
   return (
     <div className={styles.main}>
       <Header
         handlePopupToggle={handlePopupToggle}
         handleHistorySwitch={handleHistorySwitch}
+        entries={searchEntries}
       />
       <SubmitForm popupState={popupState} setPopupState={setPopupState} handleEntrySubmit={handleEntrySubmit}/>
       <History dailyHistory={filtered} />

@@ -4,14 +4,8 @@ const getNewEntryIndex = (items, item) => {
   let left_border = 0;
   let right_border = items.length - 1;
 
-  if (items.length === 0) {
-    return 0;
-  } else if (items.length === 1) {
-    if (compareStrings(items[0].name, item.name) === -1) {
-      return 0;
-    } else {
-      return 1;
-    }
+  if (items.length == 1) {
+    return compareStrings(items[0].name, item.name) === 1 ? 1 : 0;
   }
 
   while (left_border < right_border) {
@@ -19,13 +13,19 @@ const getNewEntryIndex = (items, item) => {
     let middle = items[middle_index];
     if (right_border - 1 === left_border) {
       if (compareStrings(items[right_border].name, item.name) === 1) {
-        return right_border + 1
+        return right_border + 1;
+      } else if(compareStrings(items[left_border].name, item.name) === 1) {
+        return left_border + 1;
       } else {
         return left_border;
       }
     }
+
     if (compareStrings(items[middle_index - 1].name, item.name) === 1 && compareStrings(items[middle_index + 1].name, item.name) === -1) {
-      return middle_index + 1;
+      if (compareStrings(items[middle_index].name, item.name) === 1)
+        return middle_index + 1;
+      else
+        return middle_index
     } else {
       if (compareStrings(middle.name, item.name) === -1) {
         right_border = middle_index;
@@ -34,6 +34,8 @@ const getNewEntryIndex = (items, item) => {
       }
     }
   }
+
   return items.length;
 }
+
 export default getNewEntryIndex;

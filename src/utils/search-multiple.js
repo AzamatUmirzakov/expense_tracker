@@ -1,6 +1,7 @@
 import compareStrings from "./compare-strings";
 
 const searchMultiple = (array, query) => {
+  if (query === '') return [];
   let left_border = 0;
   let right_border = array.length - 1;
   while (left_border < right_border) {
