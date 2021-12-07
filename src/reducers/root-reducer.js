@@ -13,19 +13,6 @@ const initialState = {
   },
   monthly: [],
   daily: {
-    [new Date().toDateString()]: {
-      entries: [],
-    },
-    [new Date(2021, 10, 19).toDateString()]: {
-      entries: [
-        {
-          name: "Test",
-          type: "expense",
-          value: 5,
-          timestamp: new Date(2021, 11, 19, 19, 0),
-        },
-      ],
-    },
   },
   history: {
     date: new Date(),
@@ -39,35 +26,24 @@ const rootReducer = createSlice({
   initialState,
   reducers: {
     setInitializationStatus: (state, action) => {
-      const newState = {
-        ...state,
-        initialized: action.payload,
-      };
-      return newState;
+      state.initialized = action.payload;
     },
     createNewDailyHistory: (state, action) => {
-      const newState = { ...state };
-      newState.daily = {...state.daily};
-      newState.daily[action.payload] = {
+      state.daily[action.payload] = {
         date: new Date(),
         entries: [],
-      };
-      return newState;
+      }
     },
     switchHistory: (state, action) => {
       const daily = selectDaily(state);
-      if (!daily[action.payload]) {
-        return state;
+      if (daily[action.payload]) {
+        state.history = {
+          date: action.payload,
+          entries: [...selectDaily(state)[action.payload].entries],
+        };
       }
-      const newState = { ...state };
-      newState.history = {
-        date: action.payload,
-        entries: [...selectDaily(state)[action.payload].entries],
-      };
-      return newState;
     },
     addEntry: (state, action) => {
-      const newState = { ...state };
       const entry = {
         name: action.payload.title,
         category: action.payload.category,
@@ -75,17 +51,16 @@ const rootReducer = createSlice({
         value: action.payload.value,
         type: action.payload.type,
       };
-      newState.entries = [...state.entries];
-      const index = getNewEntryIndex(newState.entries, entry)
-      newState.entries.splice(getNewEntryIndex(newState.entries, entry), 0, entry);
+      const index = getNewEntryIndex(state.entries, entry)
+      state.entries.splice(getNewEntryIndex(state.entries, entry), 0, entry);
       const date = new Date(
         entry.timestamp.getFullYear(),
         entry.timestamp.getMonth()
       );
       let newMonth = null;
       let newMonthIndex = -1;
-      for (let i = 0; i < newState.monthly.length; i++) {
-        const month = newState.monthly[i];
+      for (let i = 0; i < state.monthly.length; i++) {
+        const month = state.monthly[i];
         if (
           month.date.getFullYear() === date.getFullYear() &&
           month.date.getMonth() === date.getMonth()
@@ -99,53 +74,34 @@ const rootReducer = createSlice({
           newMonthIndex = i;
         }
       }
-      newState.history = { ...state.history };
       const currentDate = new Date().toDateString();
-      newState.daily = {
-        ...state.daily,
-      };
-      newState.daily[currentDate] = {
-        ...state.daily[currentDate],
-      };
-      newState.daily[currentDate].entries = [
-        ...newState.daily[currentDate].entries,
-        entry,
-      ];
-      newState.history = {
+      state.daily[currentDate].entries.push(entry);
+      state.history = {
         date: currentDate,
-        entries: [...newState.daily[currentDate].entries],
+        entries: [...state.daily[currentDate].entries],
       }
-      newState.monthly = [...state.monthly];
-      newState.categories = { ...state.categories };
-      newState.budget = { ...state.budget };
       if (newMonthIndex === -1) {
-        newState.monthly.push({
+        state.monthly.push({
           income: entry.type === "income" ? entry.value : 0,
           expense: entry.type === "expense" ? entry.value : 0,
           date: new Date(),
         });
       } else {
-        newState.monthly.splice(newMonthIndex, 1, newMonth);
+        state.monthly.splice(newMonthIndex, 1, newMonth);
       }
-      if (!newState.categories[entry.category]) {
-        newState.categories[entry.category] = 0;
+      if (!state.categories[entry.category]) {
+        state.categories[entry.category] = 0;
       }
       if (entry.type === "expense") {
-        newState.budget.spent = newState.budget.spent + entry.value;
-        newState.categories[entry.category] += entry.value;
+        state.budget.spent = state.budget.spent + entry.value;
+        state.categories[entry.category] += entry.value;
       }
-      return newState;
     },
     setMontlyBudget: (state, action) => {
-      const newState = { ...state };
-      newState.budget = { ...state.budget };
-      newState.budget.value = action.payload;
-      return newState;
+      state.budget.value = action.payload
     },
     setCurrency: (state, action) => {
-      const newState = { ...state };
-      newState.currency = action.payload;
-      return newState;
+      state.currency = action.payload;
     },
     changeCurrency: (state, action) => {
       const { coefficients, next, previous } = action.payload;
@@ -176,9 +132,7 @@ const rootReducer = createSlice({
       }
     },
     changeFilter: (state, action) => {
-      const newState = {...state};
-      newState.filter = action.payload;
-      return newState;
+      state.filter = action.payload;
     }
   },
 });

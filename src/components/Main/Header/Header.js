@@ -26,6 +26,7 @@ const Header = (props) => {
   const [query, setQuery] = useState('');
   const handleQueryChange = (event) => {
     setQuery(event.target.value)
+    // console.log(searchMultiple(entries, event.target.value));
   };
   return (
     <header className={styles.header}>
