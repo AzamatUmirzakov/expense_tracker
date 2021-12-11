@@ -5,7 +5,7 @@ const searchMultiple = (array, query) => {
   let left_border = 0;
   let right_border = array.length - 1;
   while (left_border < right_border) {
-    let middle = Math.round((left_border + right_border) / 2);
+    let middle = Math.floor((left_border + right_border) / 2);
     if (array[middle].name.toLowerCase().includes(query.toLowerCase())) {
       let result = [];
       result.push(array[middle]);
@@ -32,10 +32,16 @@ const searchMultiple = (array, query) => {
       return result;
     } else {
       if (compareStrings(array[middle].name, query) === -1) {
-        right_border = middle;
+        // sometimes right border won't go below one, because index is rounded up
+        right_border = middle - 1;
       } else {
-        left_border = middle;
+        left_border = middle + 1;
       }
+    }
+  }
+  if (left_border == right_border) {
+    if (array[left_border].name.toLowerCase().includes(query.toLowerCase())) {
+      return [array[left_border]];
     }
   }
   return [];

@@ -1,66 +1,77 @@
 import { useState } from "react";
-import getWeek from "../../../utils/get-week";
-import classNames from "classnames";
-import searchMultiple from "../../../utils/search-multiple";
 import styles from "./Header.module.css";
-import chevronLeft from "../../../assets/chevron-left.svg";
-import chevronRight from "../../../assets/chevron-right.svg";
+import search from '../../../assets/search.svg'
+import searchMultiple from "../../../utils/search-multiple";
+import WeekNav from "./WeekNav/WeekNav";
+import {animated, useSpring} from "react-spring";
+import formatDate from "../../../utils/format-date";
 
 const Header = (props) => {
-  // week navigation
-  const [week, setWeek] = useState(new Date());
-  const showPreviousWeek = () => {
-    setWeek(new Date(week.getFullYear(), week.getMonth(), week.getDate() - 7))
-  };
-  const showNextWeek = () => {
-    setWeek(new Date(week.getFullYear(), week.getMonth(), week.getDate() + 7))
-  };
-  const weekDays = getWeek(week);
-  const weekDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-  const currentDate = new Date();
   const handleDayClick = (date) => {
     props.handleHistorySwitch(date.toDateString());
   };
   // search input
   const entries = props.entries;
   const [query, setQuery] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
   const handleQueryChange = (event) => {
     setQuery(event.target.value)
-    // console.log(searchMultiple(entries, event.target.value));
   };
+  const handleSearch = () => {
+    setSearchResults(searchMultiple(entries, query));
+    setPopupState(true);
+  }
+  const [popupState, setPopupState] = useState(false);
+  const popupAnimation = useSpring({
+    opacity: popupState ? 1 : 0,
+    scale: popupState ? 1 : 0.8,
+  });
+  const handlePopupClose = () => {
+    setPopupState(false);
+    handleQueryChange({
+      target: {
+        value: ""
+      }
+    })
+  }
+  const handleResultClick = (date) => {
+    handleDayClick(date);
+    handlePopupClose();
+  }
   return (
     <header className={styles.header}>
       <div className={styles.text}>
         <h1>Daily Transactions</h1>
-        <button onClick={props.handlePopupToggle}>+</button>
       </div>
       <div className={styles.search}>
         <input type="text" placeholder="Search" value={query} onChange={handleQueryChange}/>
+        <button onClick={handleSearch}><img src={search} alt="Search"/></button>
+        <button onClick={props.handlePopupToggle}>+</button>
       </div>
-      <div className={styles.weekNav}>
-        <button onClick={showPreviousWeek}>
-          <img src={chevronLeft} alt="Back" />
-        </button>
-        <div className={styles.weekDays}>
-          {weekDays.map((day) => (
-            <div
-              className={classNames(styles.weekDay, {
-                [styles.active]:
-                  day.getDate() === currentDate.getDate() &&
-                  day.getMonth() === currentDate.getMonth() &&
-                  day.getFullYear() === currentDate.getFullYear(),
-              })}
-              onClick={() => handleDayClick(day)}
-            >
-              <div className={styles.weekDayName}>{weekDayNames[day.getDay()]}</div>
-              {day.getDate()}
+      <animated.div className={styles.results} style={{
+        opacity: popupAnimation.opacity,
+        zIndex: popupAnimation.opacity.to((o) => (o === 0 ? -20 : 20)),
+        transform: popupAnimation.scale.to((scale) => `scale(${scale})`),
+      }}>
+        <header>
+          <h1>Results</h1>
+          <button onClick={handlePopupClose}>&times;</button>
+        </header>
+        <ul>
+          {searchResults.map(entry => (
+            <div className={styles.entry} key={String(entry.timestamp)} onClick={() => handleResultClick(entry.timestamp)}>
+              <div className={styles.entryData}>
+                <h3 className={styles.entryTitle}>{entry.name}</h3>
+                <p className={styles.entryTime}>{formatDate(entry.timestamp)}</p>
+              </div>
+              <div>
+                <p className={styles.entryValue}>{`${entry.type === 'income' ? '+' : ''}${entry.value}$`}</p>
+              </div>
             </div>
-          ))}
-        </div>
-        <button onClick={showNextWeek}>
-          <img src={chevronRight} alt="Forward" />
-        </button>
-      </div>
+            ))}
+        </ul>
+      </animated.div>
+      <WeekNav handleDayClick={handleDayClick}/>
     </header>
   );
 };
