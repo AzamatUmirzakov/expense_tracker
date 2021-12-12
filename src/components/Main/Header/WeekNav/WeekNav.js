@@ -24,6 +24,7 @@ const WeekNav = (props) => {
       <div className={styles.weekDays}>
         {weekDays.map((day) => (
           <div
+            key={day.toDateString()}
             className={classNames(styles.weekDay, {
               [styles.active]:
               day.getDate() === currentDate.getDate() &&

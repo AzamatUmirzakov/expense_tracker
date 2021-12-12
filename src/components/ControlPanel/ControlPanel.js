@@ -1,4 +1,4 @@
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import selectCategories from "../../selectors/select-categories";
 import selectCurrency from "../../selectors/select-currency";
 import Select from "../../common/Select/Select";
@@ -6,16 +6,14 @@ import avatar from '../../assets/avatar.svg';
 import styles from './ControlPanel.module.css';
 import selectCurrentFilter from "../../selectors/select-current-filter";
 import classNames from "classnames";
-import setNewCurrency from "../../thunks/set-new-currency";
 
 const ControlPanel = (props) => {
   const categories = useSelector(selectCategories);
   const currentCurrency = useSelector(selectCurrency);
   const currentFilter = useSelector(selectCurrentFilter);
   const currencies = ['USD', 'RUB', 'KZT'];
-  const dispatch = useDispatch();
   const handleCurrencyChange = (currency) => {
-    dispatch(setNewCurrency(currentCurrency, currency));
+    props.handleCurrencyChange(currency);
   }
   return (
     <div className={styles.controlPanel}>

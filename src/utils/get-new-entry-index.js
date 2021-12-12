@@ -4,7 +4,7 @@ const getNewEntryIndex = (items, item) => {
   let left_border = 0;
   let right_border = items.length - 1;
 
-  if (items.length == 1) {
+  if (items.length === 1) {
     return compareStrings(items[0].name, item.name) === 1 ? 1 : 0;
   }
 

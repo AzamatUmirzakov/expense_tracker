@@ -52,7 +52,7 @@ const rootReducer = createSlice({
         type: action.payload.type,
       };
       const index = getNewEntryIndex(state.entries, entry)
-      state.entries.splice(getNewEntryIndex(state.entries, entry), 0, entry);
+      state.entries.splice(index, 0, entry);
       const date = new Date(
         entry.timestamp.getFullYear(),
         entry.timestamp.getMonth()

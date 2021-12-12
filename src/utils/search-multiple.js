@@ -39,7 +39,7 @@ const searchMultiple = (array, query) => {
       }
     }
   }
-  if (left_border == right_border) {
+  if (left_border === right_border) {
     if (array[left_border].name.toLowerCase().includes(query.toLowerCase())) {
       return [array[left_border]];
     }

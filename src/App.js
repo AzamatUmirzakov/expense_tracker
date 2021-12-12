@@ -27,8 +27,9 @@ function App() {
   }
 
   useEffect(() => {
+    console.log('Errors below can be ignored, they are caused because app stores Date class instances as values for entries, and not strings, and that makes Redux angry.')
     dispatch(initialize());
-  }, []);
+  }, [dispatch]);
   if (!initialized) {
     return <Preloader />;
   }
