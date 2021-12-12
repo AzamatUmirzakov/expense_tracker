@@ -14,7 +14,7 @@ const Sidebar = (props) => {
   return (
     <div className={styles.sidebar}>
       <header>
-        <ProgressBar budget={budget}/>
+        <ProgressBar budget={budget} handleChange={props.handleMonthlyBudgetChange}/>
       </header>
       <MonthlyOverview monthly={monthly}/>
       <CategoriesOverview categories={categories}/>

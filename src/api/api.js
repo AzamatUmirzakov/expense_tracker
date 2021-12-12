@@ -13,9 +13,13 @@ const getCoefficients = async (currency_one, currency_two) => {
   const url = new URL('convert', BASE_URL);
   url.searchParams.set('apiKey', API_KEY);
   url.searchParams.set('q', `${currency_one.toUpperCase()}_${currency_two.toUpperCase()},${currency_two.toUpperCase()}_${currency_one.toUpperCase()}`);
-  const response = await fetch(url);
-  const data = await response.json();
-  return data;
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    return data;
+  } catch {
+    alert('Currency API provider server seems to be down :(')
+  }
 }
 
 export {getCurrencies, getCoefficients};

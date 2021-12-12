@@ -7,6 +7,10 @@
   font-family: "Montserrat Regular";
 }
 
+.controlPanel > p:last-of-type {
+  margin-bottom: 50px;
+}
+
 .profile {
   display: flex;
   justify-content: flex-start;
@@ -81,127 +85,4 @@
 .currency select option {
   padding: 10px;
   color: red;
-}
-
-.settings {
-  margin-top: 20px;
-  background-color: transparent;
-  border: none;
-  outline: none;
-  cursor: pointer;
-}
-
-.settingsWindow {
-  background: #fff;
-  z-index: 20;
-  position: absolute;
-  width: 50vw;
-  height: 80vh;
-  top: calc(50% - 40vh);
-  left: calc(50% - 25vw);
-  border-radius: 30px;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.07),
-  0 2px 4px rgba(0,0,0,0.07),
-  0 4px 8px rgba(0,0,0,0.07),
-  0 8px 16px rgba(0,0,0,0.07),
-  0 16px 32px rgba(0,0,0,0.07),
-  0 32px 64px rgba(0,0,0,0.07);
-  padding: 20px;
-  box-sizing: border-box;
-}
-
-.settingsWindow header {
-  padding-bottom: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #ccc;
-  margin-bottom: 30px;
-}
-
-.settingsWindow header h1 {
-  margin-bottom: 0;
-}
-
-.settingsWindow header button {
-  background: #4239F9;
-  border-radius: 50%;
-  width: 35px;
-  height: 35px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: none;
-  outline: none;
-  color: #fff;
-  font-size: 20px;
-  font-family: "Montserrat Regular";
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-}
-
-.settingsWindow header button:hover {
-  box-shadow: 0 1px 2px rgba(0,0,0,0.07),
-  0 2px 4px rgba(0,0,0,0.07),
-  0 4px 8px rgba(0,0,0,0.07),
-  0 8px 16px rgba(0,0,0,0.07),
-  0 16px 32px rgba(0,0,0,0.07),
-  0 32px 64px rgba(0,0,0,0.07);
-}
-
-.settingsWindow main form {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  font-family: "Montserrat Regular";
-}
-
-.settingsWindow main form label {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.settingsWindow main form label:first-of-type {
-  margin-top: 0;
-}
-
-.settingsWindow main form input {
-background-color: #f6f8fa;
-border: none;
-outline: none;
-padding: 15px;
-width: 100%;
-box-sizing: border-box;
-border-radius: 15px;
-font-family: "Montserrat Regular";
-font-size: 15px;
-margin-bottom: 20px;
-transition: all 0.3s ease-in-out;
-}
-
-.settingsWindow main form input:hover, .settingsWindow main form input:focus {
-  background-color: #DDDFE1;
-}
-
-.settingsWindow main form button[type='submit'] {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 20px;
-  background: #4239F9;
-  border: none;
-  outline: none;
-  color: #fff;
-  margin-top: 50px;
-  border-radius: 30px;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-}
-
-.settingsWindow main form button[type='submit']:hover {
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07),
-  0 2px 4px rgba(0, 0, 0, 0.07),
-  0 4px 8px rgba(0, 0, 0, 0.07),
-  0 8px 16px rgba(0, 0, 0, 0.07),
-  0 16px 32px rgba(0, 0, 0, 0.07),
-  0 32px 64px rgba(0, 0, 0, 0.07);
 }

@@ -33,15 +33,17 @@ function App() {
     return <Preloader />;
   }
 
-  const handleSettingsChange = (values) => {
-    dispatch(setMontlyBudget(values.budget));
-    dispatch(setNewCurrency(currentCurrency, values.currency));
+  const handleCurrencyChange = (currency) => {
+    dispatch(setNewCurrency(currentCurrency, currency));
+  }
+  const handleMonthlyBudgetChange = (budget) => {
+    dispatch(setMontlyBudget(budget));
   }
   return (
     <div className="App">
-      <ControlPanel handleSettingsChange={handleSettingsChange} handleFilterChange={handleFilterChange}/>
+      <ControlPanel handleCurrencyChange={handleCurrencyChange} handleFilterChange={handleFilterChange}/>
       <Main />
-      <Sidebar />
+      <Sidebar handleMonthlyBudgetChange={handleMonthlyBudgetChange}/>
     </div>
   );
 }
