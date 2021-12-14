@@ -17,10 +17,10 @@ const ControlPanel = (props) => {
   }
   return (
     <div className={styles.controlPanel}>
-      <div className={styles.profile}>
-        <img src={avatar} alt="Avatar" className={styles.avatar}/>
-        <p>aumirzakov</p>
-      </div>
+      {/*<div className={styles.profile}>*/}
+      {/*  <img src={avatar} alt="Avatar" className={styles.avatar}/>*/}
+      {/*  <p>aumirzakov</p>*/}
+      {/*</div>*/}
       <div className={styles.categories}>
         <h2>Categories</h2>
         <ul>

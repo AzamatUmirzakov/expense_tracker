@@ -31,7 +31,7 @@
 .categories {
   padding-top: 20px;
   padding-bottom: 20px;
-  border-top: 1px solid #ccc;
+  /*border-top: 1px solid #ccc;*/
   border-bottom: 1px solid #ccc;
   margin-bottom: 20px;
 }
@@ -40,7 +40,8 @@
   font-family: "Montserrat Regular";
   font-size: 20px;
   text-transform: uppercase;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
+  /*margin-bottom: 50px;*/
   color: #414043;
   font-weight: bold;
 }
