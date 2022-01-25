@@ -11,9 +11,11 @@ import selectEntries from "../../selectors/select-entries";
 import searchMultiple from "../../utils/search-multiple";
 import {animated, useSpring} from "react-spring";
 import formatDate from "../../utils/format-date";
+import SearchPopup from "./SearchPopup/SearchPopup";
 
 const Main = (props) => {
   const { entries } = useSelector(selectHistory);
+  // filtering entries by category
   const currentFilter = useSelector(selectCurrentFilter);
   const filter = entry => {
     if (currentFilter === '') return true;
@@ -21,19 +23,23 @@ const Main = (props) => {
   }
   const filtered = entries.filter(filter);
   const dispatch = useDispatch();
+  // submitting new entry
   const handleEntrySubmit = (values) => {
     if (values.category === "") {
       values.category = "Miscellaneous";
     }
     dispatch(addEntry(values));
   };
+  // switching to other day's history
   const handleHistorySwitch = (date) => {
     dispatch(switchHistory(date));
   };
+  // submit form popup's animation
   const [popupState, setPopupState] = useState(false);
   const handlePopupToggle = () => {
     setPopupState(!popupState);
   }
+  // search
   const [searchResults, setSearchResults] = useState([]);
   const searchEntries = useSelector(selectEntries);
   const handleSearch = () => {
@@ -74,30 +80,9 @@ const Main = (props) => {
         handleQueryChange={handleQueryChange}
         handleDayClick={handleDayClick}
       />
-      <SubmitForm popupState={searchPopupState} setPopupState={setSearchPopupState} handleEntrySubmit={handleEntrySubmit}/>
+      <SubmitForm popupState={popupState} setPopupState={setPopupState} handleEntrySubmit={handleEntrySubmit}/>
+      <SearchPopup searchResults={searchResults} popupAnimation={popupAnimation} handleSearchPopupClose={handleSearchPopupClose} handleResultClick={handleResultClick}/>
       <History dailyHistory={filtered} />
-      <animated.div className={styles.results} style={{ opacity: popupAnimation.opacity,
-        zIndex: popupAnimation.opacity.to((o) => (o === 0 ? -20 : 20)),
-        transform: popupAnimation.scale.to((scale) => `scale(${scale})`),
-      }}>
-        <header>
-          <h1>Results</h1>
-          <button onClick={handleSearchPopupClose}>&times;</button>
-        </header>
-        <ul>
-          {searchResults.map(entry => (
-            <div className={styles.entry} key={String(entry.timestamp)} onClick={() => handleResultClick(entry.timestamp)}>
-              <div className={styles.entryData}>
-                <h3 className={styles.entryTitle}>{entry.name}</h3>
-                <p className={styles.entryTime}>{formatDate(entry.timestamp)}</p>
-              </div>
-              <div>
-                <p className={styles.entryValue}>{`${entry.type === 'income' ? '+' : ''}${entry.value}$`}</p>
-              </div>
-            </div>
-          ))}
-        </ul>
-      </animated.div>
     </div>
   );
 };
