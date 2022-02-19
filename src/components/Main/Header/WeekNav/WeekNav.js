@@ -4,6 +4,7 @@ import classNames from "classnames";
 import chevronRight from "../../../../assets/chevron-right.svg";
 import {useState} from "react";
 import getWeek from "../../../../utils/get-week";
+import {useSelector} from "react-redux";
 
 const WeekNav = (props) => {
   const [week, setWeek] = useState(new Date());
@@ -15,32 +16,42 @@ const WeekNav = (props) => {
   };
   const weekDays = getWeek(week);
   const weekDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-  const currentDate = new Date();
+  const today = new Date();
+  const current = new Date(props.day);
+  const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   return (
-    <div className={styles.weekNav}>
-      <button onClick={showPreviousWeek}>
-        <img src={chevronLeft} alt="Back" />
-      </button>
-      <div className={styles.weekDays}>
-        {weekDays.map((day) => (
-          <div
-            key={day.toDateString()}
-            className={classNames(styles.weekDay, {
-              [styles.active]:
-              day.getDate() === currentDate.getDate() &&
-              day.getMonth() === currentDate.getMonth() &&
-              day.getFullYear() === currentDate.getFullYear(),
-            })}
-            onClick={() => props.handleDayClick(day)}
-          >
-            <div className={styles.weekDayName}>{weekDayNames[day.getDay()]}</div>
-            {day.getDate()}
-          </div>
-        ))}
+    <div className={styles.wrapper}>
+      <div className={styles.weekNav}>
+        <button onClick={showPreviousWeek}>
+          <img src={chevronLeft} alt="Back" />
+        </button>
+        <div className={styles.weekDays}>
+          {weekDays.map((day) => (
+            <div
+              key={day.toDateString()}
+              className={classNames(styles.weekDay, {
+                [styles.today]:
+                  (day.getDate() === today.getDate() &&
+                   day.getMonth() === today.getMonth() &&
+                   day.getFullYear() === today.getFullYear()),
+                [styles.active]:
+                  (day.getDate() === current.getDate() &&
+                   day.getMonth() === current.getMonth() &&
+                   day.getFullYear() === current.getFullYear()),
+                [styles.empty]: !props.daily[day.toDateString()]
+              })}
+              onClick={() => props.handleDayClick(day)}
+            >
+              <div className={styles.weekDayName}>{weekDayNames[day.getDay()]}</div>
+              <p className={styles.weekDayDate}>{day.getDate()}</p>
+            </div>
+          ))}
+        </div>
+        <button onClick={showNextWeek}>
+          <img src={chevronRight} alt="Forward" />
+        </button>
       </div>
-      <button onClick={showNextWeek}>
-        <img src={chevronRight} alt="Forward" />
-      </button>
+      <p>{monthNames[weekDays[0].getMonth()]}</p>
     </div>
   )
 }

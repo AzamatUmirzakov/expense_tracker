@@ -31,7 +31,7 @@ const History = (props) => {
         </p>
       </header>
       <div className={styles.entries}>
-        {dailyHistory.map(entry => (
+        {dailyHistory.length > 0 ? dailyHistory.map(entry => (
           <div className={styles.entry} key={String(entry.timestamp)}>
             <div className={styles.entryData}>
               <h3 className={styles.entryTitle}>{entry.name}</h3>
@@ -41,7 +41,7 @@ const History = (props) => {
               <p className={styles.entryValue}>{`${entry.type === 'income' ? '+' : ''}${entry.value}$`}</p>
             </div>
           </div>
-        ))}
+        )) : <p>There is nothing here...</p>}
       </div>
     </div>
   )
