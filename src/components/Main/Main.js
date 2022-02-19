@@ -9,9 +9,9 @@ import {useState} from "react";
 import selectCurrentFilter from "../../selectors/select-current-filter";
 import selectEntries from "../../selectors/select-entries";
 import searchMultiple from "../../utils/search-multiple";
-import {animated, useSpring} from "react-spring";
-import formatDate from "../../utils/format-date";
+import {useSpring} from "react-spring";
 import SearchPopup from "./SearchPopup/SearchPopup";
+import menuIcon from '../../assets/menu.svg';
 
 const Main = (props) => {
   const { entries } = useSelector(selectHistory);

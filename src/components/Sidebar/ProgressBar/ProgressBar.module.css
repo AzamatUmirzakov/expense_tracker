@@ -71,6 +71,17 @@
   font-size: 30px;
   color: #fff;
   text-align: center;
+
+}
+
+.progressBar input::-webkit-outer-spin-button,
+.progressBar input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.progressBar input {
+  -moz-appearance: textfield;
 }
 
 .progressBar input::placeholder {

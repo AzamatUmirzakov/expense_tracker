@@ -80,3 +80,12 @@
   font-weight: bold;
   font-size: 25px;
 }
+
+@media (max-width: 1160px) {
+  .results {
+    width: 70vw;
+    height: 60vh;
+    top: calc(50% - 30vh);
+    left: calc(50% - 35vw);
+  }
+}

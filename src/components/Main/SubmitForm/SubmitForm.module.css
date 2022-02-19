@@ -130,3 +130,12 @@
   cursor: pointer;
   transition: all 0.3s ease-in-out;
 }
+
+@media (max-width: 1160px) {
+  .popup {
+    width: 70vw;
+    height: 70vh;
+    top: calc(50% - 35vh);
+    left: calc(50% - 35vw);
+  }
+}

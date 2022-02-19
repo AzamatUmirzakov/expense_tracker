@@ -3,7 +3,7 @@ import "./App.css";
 import ControlPanel from "./components/ControlPanel/ControlPanel";
 import Main from "./components/Main/Main";
 import Sidebar from "./components/Sidebar/Sidebar";
-import { useEffect } from "react";
+import {useEffect, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import selectCurrency from "./selectors/select-currency";
 import initialize from "./thunks/initialize";
@@ -12,6 +12,7 @@ import Preloader from "./common/Preloader/Preloader";
 import {changeFilter, setMontlyBudget} from "./reducers/root-reducer";
 import setNewCurrency from "./thunks/set-new-currency";
 import selectCurrentFilter from "./selectors/select-current-filter";
+import menuIcon from "./assets/menu.svg";
 
 function App() {
   const dispatch = useDispatch();
@@ -30,9 +31,6 @@ function App() {
     console.log('Errors below can be ignored, they are caused because app stores Date class instances as values for entries, and not strings, and that makes Redux angry.')
     dispatch(initialize());
   }, [dispatch]);
-  if (!initialized) {
-    return <Preloader />;
-  }
 
   const handleCurrencyChange = (currency) => {
     dispatch(setNewCurrency(currentCurrency, currency));
@@ -40,11 +38,29 @@ function App() {
   const handleMonthlyBudgetChange = (budget) => {
     dispatch(setMontlyBudget(budget));
   }
+
+  const [controlPanelState, setControlPanelState] = useState(false);
+  const toggleControlPanel = () => {
+    setControlPanelState(!controlPanelState);
+  }
+
+  const [sidebarState, setSidebarState] = useState(false);
+  const toggleSidebar = () => {
+    setSidebarState(!sidebarState);
+  }
+
+  if (!initialized) {
+    return <Preloader />;
+  }
   return (
     <div className="App">
-      <ControlPanel handleCurrencyChange={handleCurrencyChange} handleFilterChange={handleFilterChange}/>
+      <div className='sidebarButtons'>
+        <button onClick={toggleControlPanel}><img src={menuIcon} alt="Open control panel"/></button>
+        <button onClick={toggleSidebar}><img src={menuIcon} alt="Open sidebar"/></button>
+      </div>
+      <ControlPanel controlPanelState={controlPanelState} handleCurrencyChange={handleCurrencyChange} handleFilterChange={handleFilterChange}/>
       <Main />
-      <Sidebar handleMonthlyBudgetChange={handleMonthlyBudgetChange}/>
+      <Sidebar sidebarState={sidebarState} handleMonthlyBudgetChange={handleMonthlyBudgetChange}/>
     </div>
   );
 }

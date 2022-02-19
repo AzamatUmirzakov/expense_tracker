@@ -87,3 +87,20 @@
   padding: 10px;
   color: red;
 }
+
+@media (max-width: 1160px) {
+  .controlPanel {
+    z-index: 15;
+    width: 60vw;
+    position: fixed;
+    height: 100vh;
+    overflow-y: auto;
+    top: 0;
+    left: -500px;
+    transition: all 0.3s ease-in-out;
+  }
+  .controlPanel.visible {
+    box-shadow: 60vw 0 rgba(0, 0, 0, 0.7);
+    left: 0px;
+  }
+}

@@ -16,7 +16,9 @@ const ControlPanel = (props) => {
     props.handleCurrencyChange(currency);
   }
   return (
-    <div className={styles.controlPanel}>
+    <div className={classNames(styles.controlPanel, {
+      [styles.visible]: props.controlPanelState,
+    })}>
       {/*<div className={styles.profile}>*/}
       {/*  <img src={avatar} alt="Avatar" className={styles.avatar}/>*/}
       {/*  <p>aumirzakov</p>*/}

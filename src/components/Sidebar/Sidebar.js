@@ -6,13 +6,16 @@ import ProgressBar from "./ProgressBar/ProgressBar";
 import MonthlyOverview from "./MonthlyOverview/MonthlyOverview";
 import CategoriesOverview from "./CategoriesOverview/CategoriesOverview";
 import styles from './Sidebar.module.css';
+import classNames from "classnames";
 
 const Sidebar = (props) => {
   const budget = useSelector(selectBudget);
   const monthly = useSelector(selectMonthly);
   const categories = useSelector(selectCategories);
   return (
-    <div className={styles.sidebar}>
+    <div className={classNames(styles.sidebar, {
+      [styles.visible]: props.sidebarState,
+    })}>
       <header>
         <ProgressBar budget={budget} handleChange={props.handleMonthlyBudgetChange}/>
       </header>
