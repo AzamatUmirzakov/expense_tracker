@@ -9,7 +9,8 @@
   background-color: #fff;
   padding: 20px;
   width: 30vw;
-  height: 60vh;
+  min-height: 60vh;
+  height: max-content;
   box-sizing: border-box;
   border: 1px solid #ccc;
   border-radius: 15px;
@@ -134,7 +135,8 @@
 @media (max-width: 1160px) {
   .popup {
     width: 70vw;
-    height: 70vh;
+    min-height: 70vh;
+    height: max-content;
     top: calc(50% - 35vh);
     left: calc(50% - 35vw);
   }
