@@ -24,7 +24,7 @@ h1 {
     position: fixed;
     height: 100vh;
     top: 0;
-    right: -500px;
+    right: -1000px;
     padding: 20px;
     padding-top: 50px;
     transition: all 0.3s ease-in-out;

@@ -3,3 +3,17 @@
   padding: 50px;
   box-sizing: border-box;
 }
+
+@media (max-width: 1160px) {
+  .main {
+    padding: 20px;
+    padding-top: 50px;
+  }
+}
+
+@media (max-width: 720px) {
+  .main {
+    padding: 10px;
+    padding-top: 50px;
+  }
+}

@@ -13,6 +13,7 @@
 .weekNav {
   display: grid;
   grid-template-areas: 'left list list right';
+  grid-template-columns: 10% 1fr 1fr 10%;
 }
 
 .weekNav button {
@@ -95,4 +96,12 @@
 
 .weekDay.empty .weekDayDate {
   color: #ccc;
+}
+
+@media (max-width: 500px) {
+  .weekDay {
+    width: 30px;
+    height: 30px;
+    font-size: 15px;
+  }
 }
