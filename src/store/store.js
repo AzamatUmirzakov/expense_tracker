@@ -26,6 +26,6 @@ if (preloaded) {
 
 window.store = store;
 
-store.subscribe(() => localStorage.expense_tracker_state = JSON.stringify(store.getState()));
+store.subscribe(() => localStorage.setItem('expense_tracker_state', JSON.stringify(store.getState())));
 
 export default store;
