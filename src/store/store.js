@@ -1,13 +1,16 @@
 import {configureStore} from "@reduxjs/toolkit";
 import historyReducer from "../reducers/root-reducer";
 
-const preloaded = JSON.parse(localStorage.expense_tracker_state, (key, value) => {
-  if (key === 'date' || key === 'timestamp') {
-    return new Date(value);
-  }
-  return value;
-});
-
+const state = localStorage.getItem('expense_tracker_state');
+let preloaded = null;
+if (state) {
+  preloaded = JSON.parse(state, (key, value) => {
+    if (key === 'date' || key === 'timestamp') {
+      return new Date(value);
+    }
+    return value;
+  });
+}
 let store = null;
 
 if (preloaded) {
