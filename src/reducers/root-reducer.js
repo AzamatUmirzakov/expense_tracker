@@ -50,7 +50,7 @@ const rootReducer = createSlice({
         value: action.payload.value,
         type: action.payload.type,
       };
-      debugger;
+      console.log(state);
       state.entries.push(entry);
       const date = new Date(
         entry.timestamp.getFullYear(),
