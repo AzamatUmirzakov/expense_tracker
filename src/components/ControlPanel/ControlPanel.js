@@ -1,16 +1,11 @@
-import {useSelector} from "react-redux";
-import selectCategories from "../../selectors/select-categories";
-import selectCurrency from "../../selectors/select-currency";
 import Select from "../../common/Select/Select";
-import avatar from '../../assets/avatar.svg';
 import styles from './ControlPanel.module.css';
-import selectCurrentFilter from "../../selectors/select-current-filter";
 import classNames from "classnames";
 
 const ControlPanel = (props) => {
-  const categories = useSelector(selectCategories);
-  const currentCurrency = useSelector(selectCurrency);
-  const currentFilter = useSelector(selectCurrentFilter);
+  const categories = props.categories;
+  const currentCurrency = props.currentCurrency;
+  const currentFilter = props.currentFilter;
   const currencies = ['USD', 'RUB', 'KZT'];
   const handleCurrencyChange = (currency) => {
     props.handleCurrencyChange(currency);

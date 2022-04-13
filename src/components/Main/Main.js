@@ -1,22 +1,18 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import styles from "./Main.module.css";
-import selectHistory from "../../selectors/select-history";
 import Header from "./Header/Header";
 import History from "./History/History";
 import { addEntry, switchHistory } from "../../reducers/root-reducer";
 import SubmitForm from "./SubmitForm/SubmitForm";
 import {useState} from "react";
-import selectCurrentFilter from "../../selectors/select-current-filter";
-import selectEntries from "../../selectors/select-entries";
 import searchMultiple from "../../utils/search-multiple";
 import {useSpring} from "react-spring";
 import SearchPopup from "./SearchPopup/SearchPopup";
-import menuIcon from '../../assets/menu.svg';
 
 const Main = (props) => {
-  const { entries } = useSelector(selectHistory);
   // filtering entries by category
-  const currentFilter = useSelector(selectCurrentFilter);
+  const currentFilter = props.filter;
+  const entries = props.entries;
   const filter = entry => {
     if (currentFilter === '') return true;
     return entry.category === currentFilter;
@@ -41,7 +37,7 @@ const Main = (props) => {
   }
   // search
   const [searchResults, setSearchResults] = useState([]);
-  const searchEntries = useSelector(selectEntries);
+  const searchEntries = props.searchEntries;
   const handleSearch = () => {
     setSearchResults(searchMultiple(searchEntries, query));
     setSearchPopupState(true);

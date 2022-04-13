@@ -13,6 +13,9 @@ import {changeFilter, setMontlyBudget} from "./reducers/root-reducer";
 import setNewCurrency from "./thunks/set-new-currency";
 import selectCurrentFilter from "./selectors/select-current-filter";
 import menuIcon from "./assets/menu.svg";
+import selectCategories from "./selectors/select-categories";
+import selectHistory from "./selectors/select-history";
+import selectEntries from "./selectors/select-entries";
 
 function App() {
   const dispatch = useDispatch();
@@ -28,7 +31,7 @@ function App() {
   }
 
   useEffect(() => {
-    console.log('Errors below can be ignored, they are caused because app stores Date class instances as values for entries, and not strings, and that makes Redux angry.')
+    console.log('Errors below can be ignored, I think, because they are caused because app stores Date class instances as values for entries, and not strings, and that makes Redux angry. They dont cause any troubles, and I will fix them anyway soon.')
     dispatch(initialize());
   }, [dispatch]);
 
@@ -48,6 +51,12 @@ function App() {
   const toggleSidebar = () => {
     setSidebarState(!sidebarState);
   }
+  // data for control panel
+  const categories = useSelector(selectCategories);
+
+  // for main component
+  const { entries } = useSelector(selectHistory);
+  const searchEntries = useSelector(selectEntries);
 
   if (!initialized) {
     return <Preloader />;
@@ -58,8 +67,8 @@ function App() {
         <button onClick={toggleControlPanel}><img src={menuIcon} alt="Open control panel"/></button>
         <button onClick={toggleSidebar}><img src={menuIcon} alt="Open sidebar"/></button>
       </div>
-      <ControlPanel controlPanelState={controlPanelState} handleCurrencyChange={handleCurrencyChange} handleFilterChange={handleFilterChange}/>
-      <Main />
+      <ControlPanel categories={categories} currentCurrency={currentCurrency} currentFilter={currentFilter} controlPanelState={controlPanelState} handleCurrencyChange={handleCurrencyChange} handleFilterChange={handleFilterChange}/>
+      <Main currentFilter={currentFilter} entries={entries} searchEntries={searchEntries}/>
       <Sidebar sidebarState={sidebarState} handleMonthlyBudgetChange={handleMonthlyBudgetChange}/>
     </div>
   );
