@@ -11,7 +11,7 @@ import SearchPopup from "./SearchPopup/SearchPopup";
 
 const Main = (props) => {
   // filtering entries by category
-  const currentFilter = props.filter;
+  const currentFilter = props.currentFilter;
   const entries = props.entries;
   const filter = entry => {
     if (currentFilter === '') return true;
