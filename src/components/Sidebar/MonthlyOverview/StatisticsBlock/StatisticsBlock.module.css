@@ -48,3 +48,9 @@
 .barActive {
   opacity: 1;
 }
+
+@media (max-width: 1160px) {
+  .statisticsBlock h2 {
+    font-size: 22px;
+  }
+}
