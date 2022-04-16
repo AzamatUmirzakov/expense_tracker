@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import {useDispatch} from "react-redux";
 import styles from "./Main.module.css";
 import Header from "./Header/Header";
 import History from "./History/History";
@@ -75,10 +75,12 @@ const Main = (props) => {
         query={query}
         handleQueryChange={handleQueryChange}
         handleDayClick={handleDayClick}
+        history={props.history}
+        daily={props.daily}
       />
       <SubmitForm popupState={popupState} setPopupState={setPopupState} handleEntrySubmit={handleEntrySubmit}/>
       <SearchPopup searchResults={searchResults} popupAnimation={popupAnimation} handleSearchPopupClose={handleSearchPopupClose} handleResultClick={handleResultClick}/>
-      <History dailyHistory={filtered} />
+      <History formatter={props.formatter} dailyHistory={filtered} />
     </div>
   );
 };

@@ -2,7 +2,7 @@ import styles from './History.module.css';
 import formatDate from "../../../utils/format-date";
 
 const History = (props) => {
-  const {dailyHistory} = props;
+  const {dailyHistory, formatter} = props;
   let income = 0;
   let expense = 0;
   let net = 0;
@@ -19,15 +19,15 @@ const History = (props) => {
       <header>
         <p>
           <span>Total income</span>
-          <span>{income}$</span>
+          <span>{formatter.format(income)}</span>
         </p>
         <p>
           <span>Total expense</span>
-          <span>{expense}$</span>
+          <span>{formatter.format(expense)}</span>
         </p>
         <p>
           <span>Net</span>
-          <span>{net}$</span>
+          <span>{formatter.format(net)}</span>
         </p>
       </header>
       <div className={styles.entries}>
@@ -38,7 +38,7 @@ const History = (props) => {
               <p className={styles.entryTime}>{formatDate(entry.timestamp)}</p>
             </div>
             <div>
-              <p className={styles.entryValue}>{`${entry.type === 'income' ? '+' : ''}${entry.value}$`}</p>
+              <p className={styles.entryValue}>{`${entry.type === 'income' ? '+' : ''}${formatter.format(entry.value)}`}</p>
             </div>
           </div>
         )) : <p>There is nothing here...</p>}

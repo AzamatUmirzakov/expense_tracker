@@ -48,7 +48,7 @@ const StatisticsBlock = (props) => {
           }}/>
         ))}
       </div>
-      <h2>{current ? `${current.value}$` : ''}</h2>
+      <h2>{current ? `${props.formatter.format(current.value)}` : ''}</h2>
       <h3 style={{color: barColor}}>{difference ? `${difference}$` : ''}</h3>
     </div>
   )

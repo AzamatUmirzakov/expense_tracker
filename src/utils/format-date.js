@@ -16,7 +16,8 @@ const determineMonth = (month) => {
   return monthes[month];
 };
 
-const formatDate = (timestamp) => {
+const formatDate = (str) => {
+  const timestamp = new Date(str);
   const date = timestamp.getDate();
   const month = determineMonth(timestamp.getMonth());
   const year = timestamp.getFullYear();

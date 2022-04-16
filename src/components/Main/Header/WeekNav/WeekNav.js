@@ -4,7 +4,6 @@ import classNames from "classnames";
 import chevronRight from "../../../../assets/chevron-right.svg";
 import {useState} from "react";
 import getWeek from "../../../../utils/get-week";
-import {useSelector} from "react-redux";
 
 const WeekNav = (props) => {
   const [week, setWeek] = useState(new Date());

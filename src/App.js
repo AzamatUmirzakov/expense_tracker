@@ -16,6 +16,7 @@ import menuIcon from "./assets/menu.svg";
 import selectCategories from "./selectors/select-categories";
 import selectHistory from "./selectors/select-history";
 import selectEntries from "./selectors/select-entries";
+import selectDaily from "./selectors/select-daily";
 
 function App() {
   const dispatch = useDispatch();
@@ -31,7 +32,6 @@ function App() {
   }
 
   useEffect(() => {
-    console.log('Errors below can be ignored, I think, because they are caused because app stores Date class instances as values for entries, and not strings, and that makes Redux angry. They dont cause any troubles, and I will fix them anyway soon.')
     dispatch(initialize());
   }, [dispatch]);
 
@@ -55,8 +55,15 @@ function App() {
   const categories = useSelector(selectCategories);
 
   // for main component
-  const { entries } = useSelector(selectHistory);
+  const history = useSelector(selectHistory)
+  const daily = useSelector(selectDaily);
+  const {entries} = history;
   const searchEntries = useSelector(selectEntries);
+
+  const formatter = new Intl.NumberFormat('ru', {
+    style: 'currency',
+    currency: currentCurrency,
+  })
 
   if (!initialized) {
     return <Preloader />;
@@ -68,8 +75,8 @@ function App() {
         <button onClick={toggleSidebar}><img src={menuIcon} alt="Open sidebar"/></button>
       </div>
       <ControlPanel categories={categories} currentCurrency={currentCurrency} currentFilter={currentFilter} controlPanelState={controlPanelState} handleCurrencyChange={handleCurrencyChange} handleFilterChange={handleFilterChange}/>
-      <Main currentFilter={currentFilter} entries={entries} searchEntries={searchEntries}/>
-      <Sidebar sidebarState={sidebarState} handleMonthlyBudgetChange={handleMonthlyBudgetChange}/>
+      <Main history={history} daily={daily} formatter={formatter} currentFilter={currentFilter} entries={entries} searchEntries={searchEntries}/>
+      <Sidebar formatter={formatter} sidebarState={sidebarState} handleMonthlyBudgetChange={handleMonthlyBudgetChange}/>
     </div>
   );
 }

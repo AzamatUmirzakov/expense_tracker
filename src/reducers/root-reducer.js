@@ -14,7 +14,7 @@ const initialState = {
   daily: {
   },
   history: {
-    date: new Date(),
+    date: new Date().toString(),
     entries: [],
   },
   entries: [],
@@ -29,7 +29,7 @@ const rootReducer = createSlice({
     },
     createNewDailyHistory: (state, action) => {
       state.daily[action.payload] = {
-        date: new Date(),
+        date: new Date().toString(),
         entries: [],
       }
     },
@@ -43,25 +43,23 @@ const rootReducer = createSlice({
       }
     },
     addEntry: (state, action) => {
+      const date = new Date();
       const entry = {
         name: action.payload.title,
         category: action.payload.category,
-        timestamp: new Date(),
+        timestamp: date.toString(),
         value: action.payload.value,
         type: action.payload.type,
       };
       state.entries.push(entry);
-      const date = new Date(
-        entry.timestamp.getFullYear(),
-        entry.timestamp.getMonth()
-      );
       let newMonth = null;
       let newMonthIndex = -1;
       for (let i = 0; i < state.monthly.length; i++) {
         const month = state.monthly[i];
+        const monthDate = new Date(month.date);
         if (
-          month.date.getFullYear() === date.getFullYear() &&
-          month.date.getMonth() === date.getMonth()
+          monthDate.getFullYear() === date.getFullYear() &&
+          monthDate.getMonth() === date.getMonth()
         ) {
           newMonth = {
             ...month,
@@ -82,7 +80,7 @@ const rootReducer = createSlice({
         state.monthly.push({
           income: entry.type === "income" ? entry.value : 0,
           expense: entry.type === "expense" ? entry.value : 0,
-          date: new Date(),
+          date: new Date().toDateString(),
         });
       } else {
         state.monthly.splice(newMonthIndex, 1, newMonth);

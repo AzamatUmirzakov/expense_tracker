@@ -4,12 +4,7 @@ import historyReducer from "../reducers/root-reducer";
 const state = localStorage.getItem('expense_tracker_state');
 let preloaded = null;
 if (state) {
-  preloaded = JSON.parse(state, (key, value) => {
-    if (key === 'date' || key === 'timestamp') {
-      return new Date(value);
-    }
-    return value;
-  });
+  preloaded = JSON.parse(state);
 }
 let store = null;
 

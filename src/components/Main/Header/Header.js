@@ -1,13 +1,9 @@
 import styles from "./Header.module.css";
 import search from '../../../assets/search.svg'
 import WeekNav from "./WeekNav/WeekNav";
-import {useSelector} from "react-redux";
-import selectHistory from "../../../selectors/select-history";
-import selectDaily from "../../../selectors/select-daily";
 
 const Header = (props) => {
-  const history = useSelector(selectHistory);
-  const daily = useSelector(selectDaily);
+  const {history, daily} = props;
   return (
     <header className={styles.header}>
       <div className={styles.text}>
