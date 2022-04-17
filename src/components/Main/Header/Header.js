@@ -3,7 +3,7 @@ import search from '../../../assets/search.svg'
 import WeekNav from "./WeekNav/WeekNav";
 
 const Header = (props) => {
-  const {history, daily} = props;
+  const {currentDate, daily} = props;
   return (
     <header className={styles.header}>
       <div className={styles.text}>
@@ -14,7 +14,7 @@ const Header = (props) => {
         <button onClick={props.handleSearch}><img src={search} alt="Search"/></button>
         <button onClick={props.handlePopupToggle}>+</button>
       </div>
-      <WeekNav day={history.date} daily={daily} handleDayClick={props.handleDayClick}/>
+      <WeekNav day={currentDate} daily={daily} handleDayClick={props.handleDayClick}/>
     </header>
   );
 };

@@ -1,4 +1,4 @@
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import styles from "./Main.module.css";
 import Header from "./Header/Header";
 import History from "./History/History";
@@ -8,11 +8,17 @@ import {useState} from "react";
 import searchMultiple from "../../utils/search-multiple";
 import {useSpring} from "react-spring";
 import SearchPopup from "./SearchPopup/SearchPopup";
+import selectCurrentFilter from "../../selectors/select-current-filter";
+import selectHistory from "../../selectors/select-history";
+import selectEntries from "../../selectors/select-entries";
+import selectDaily from "../../selectors/select-daily";
 
 const Main = (props) => {
   // filtering entries by category
-  const currentFilter = props.currentFilter;
-  const entries = props.entries;
+  const currentFilter = useSelector(selectCurrentFilter);
+  const history = useSelector(selectHistory);
+  const {entries} = history;
+  const daily = useSelector(selectDaily);
   const filter = entry => {
     if (currentFilter === '') return true;
     return entry.category === currentFilter;
@@ -37,7 +43,7 @@ const Main = (props) => {
   }
   // search
   const [searchResults, setSearchResults] = useState([]);
-  const searchEntries = props.searchEntries;
+  const searchEntries = useSelector(selectEntries);
   const handleSearch = () => {
     setSearchResults(searchMultiple(searchEntries, query));
     setSearchPopupState(true);
@@ -75,8 +81,8 @@ const Main = (props) => {
         query={query}
         handleQueryChange={handleQueryChange}
         handleDayClick={handleDayClick}
-        history={props.history}
-        daily={props.daily}
+        currentDate={history.date}
+        daily={daily}
       />
       <SubmitForm popupState={popupState} setPopupState={setPopupState} handleEntrySubmit={handleEntrySubmit}/>
       <SearchPopup searchResults={searchResults} popupAnimation={popupAnimation} handleSearchPopupClose={handleSearchPopupClose} handleResultClick={handleResultClick}/>
