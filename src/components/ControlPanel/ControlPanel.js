@@ -34,7 +34,7 @@ const ControlPanel = (props) => {
           {Object.keys(categories).map(category => <li className={classNames({[styles.activeCategory]: currentFilter === category})} onClick={() => handleFilterChange(category)} key={category}>{category}</li>)}
         </ul>
       </div>
-      <p>This is still work in progress :)</p>
+      <p>Days without any entry history are gray on week navigation, and you can't view them. There is also no monthly view right now, but this is still work in progress :)</p>
       <Select options={currencies} placeholder={currencies.indexOf(currentCurrency)} onChange={handleCurrencyChange}/>
     </div>
   )

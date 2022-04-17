@@ -69,7 +69,7 @@ const Main = (props) => {
     handleHistorySwitch(date.toDateString());
   };
   const handleResultClick = (date) => {
-    handleDayClick(date);
+    handleDayClick(new Date(date));
     handleSearchPopupClose();
   }
   return (
