@@ -1,8 +1,11 @@
 import styles from './MonthlyOverview.module.css';
 import StatisticsBlock from "./StatisticsBlock/StatisticsBlock";
+import FormatterContext from "../../../context/formatter-context";
+import {useContext} from "react";
 
 const MonthlyOverview = (props) => {
-  const {monthly, formatter} = props;
+  const formatter = useContext(FormatterContext);
+  const {monthly} = props;
   const expense_data = monthly.map((month, index) => ({
     value: month.expense,
     name: month.date,

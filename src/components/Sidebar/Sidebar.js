@@ -24,7 +24,7 @@ const Sidebar = (props) => {
       <header>
         <ProgressBar budget={budget} handleChange={handleMonthlyBudgetChange}/>
       </header>
-      <MonthlyOverview formatter={props.formatter} monthly={monthly}/>
+      <MonthlyOverview monthly={monthly}/>
       <CategoriesOverview categories={categories}/>
     </div>
   )

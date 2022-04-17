@@ -10,6 +10,8 @@ import initialize from "./thunks/initialize";
 import selectInit from "./selectors/select-init";
 import Preloader from "./common/Preloader/Preloader";
 import menuIcon from "./assets/menu.svg";
+import {Form} from "formik";
+import FormatterContext from "./context/formatter-context";
 
 function App() {
   const dispatch = useDispatch();
@@ -39,13 +41,15 @@ function App() {
   }
   return (
     <div className="App">
-      <div className='sidebarButtons'>
-        <button onClick={toggleControlPanel}><img src={menuIcon} alt="Open control panel"/></button>
-        <button onClick={toggleSidebar}><img src={menuIcon} alt="Open sidebar"/></button>
-      </div>
-      <ControlPanel controlPanelState={controlPanelState} />
-      <Main formatter={formatter} />
-      <Sidebar formatter={formatter} sidebarState={sidebarState} />
+      <FormatterContext.Provider value={formatter}>
+        <div className='sidebarButtons'>
+          <button onClick={toggleControlPanel}><img src={menuIcon} alt="Open control panel"/></button>
+          <button onClick={toggleSidebar}><img src={menuIcon} alt="Open sidebar"/></button>
+        </div>
+        <ControlPanel controlPanelState={controlPanelState} />
+        <Main/>
+        <Sidebar sidebarState={sidebarState} />
+      </FormatterContext.Provider>
     </div>
   );
 }

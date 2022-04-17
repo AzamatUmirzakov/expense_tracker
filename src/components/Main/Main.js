@@ -86,7 +86,7 @@ const Main = (props) => {
       />
       <SubmitForm popupState={popupState} setPopupState={setPopupState} handleEntrySubmit={handleEntrySubmit}/>
       <SearchPopup searchResults={searchResults} popupAnimation={popupAnimation} handleSearchPopupClose={handleSearchPopupClose} handleResultClick={handleResultClick}/>
-      <History formatter={props.formatter} dailyHistory={filtered} />
+      <History dailyHistory={filtered} />
     </div>
   );
 };
